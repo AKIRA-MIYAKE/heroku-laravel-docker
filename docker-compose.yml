@@ -4,12 +4,31 @@ services:
   web:
     build: .
     environment:
-      - VIRTUAL_HOST=nginx-hhvm.app
+      VIRTUAL_HOST: nginx-hhvm.app
     volumes:
       - ./config/conf.d:/etc/nginx/conf.d
       - ./config/sites-enabled:/etc/nginx/sites-enabled
       - ../laravel/project/path:/var/www
       - ../laravel/project/path/nginx_app.conf:/etc/nginx/nginx_app.conf
     ports:
-        - "80:80"
-        - "443:443"
+      - "80:80"
+      - "443:443"
+    links:
+      - redis
+  queue_worker:
+    build: .
+    working_dir: '/var/www'
+    command: 'hhvm artisan queue:listen'
+    environment:
+      VIRTUAL_HOST: nginx-hhvm.app
+    volumes:
+      - ./config/conf.d:/etc/nginx/conf.d
+      - ./config/sites-enabled:/etc/nginx/sites-enabled
+      - ../laravel/project/path:/var/www
+      - ../laravel/project/path/nginx_app.conf:/etc/nginx/nginx_app.conf
+    links:
+      - redis
+  redis:
+    image: redis
+    ports:
+      - '6379'
