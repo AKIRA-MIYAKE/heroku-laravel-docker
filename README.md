@@ -1,3 +1,8 @@
+# heroku-laravel-docker
+
+Heroku上で動作するLaravel + nginx + hhvmのプロジェクトを、ローカルで開発するためのDockerの設定ファイル群。
+
+
 # laravel-hhvm-docker
 
 A super fast, production hardened HHVM / PHP-7 `Dockerfile` served by Nginx forward proxy. See [link](http://goo.gl/Adqu0i) for the why. Perfect for horizontally distributed `Laravel` applications run within a Docker container cluster.

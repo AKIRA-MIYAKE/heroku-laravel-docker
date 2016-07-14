@@ -1,14 +1,15 @@
-load_balancer:
-    image: dockercloud/haproxy
-    links:
-        - web
-    ports:
-        - "80:80"   
-        - "443:443"       
-web:
-    image: andrewmclagan/nginx-hhvm
-    environment: 
-        - VIRTUAL_HOST=nginx-hhvm.app
+version: '2'
+
+services:
+  web:
+    build: .
+    environment:
+      - VIRTUAL_HOST=nginx-hhvm.app
     volumes:
-        - ./config/conf.d:/etc/nginx/conf.d
-        - ./config/sites-enabled:/etc/nginx/sites-enabled
+      - ./config/conf.d:/etc/nginx/conf.d
+      - ./config/sites-enabled:/etc/nginx/sites-enabled
+      - ../laravel/project/path:/var/www
+      - ../laravel/project/path/nginx_app.conf:/etc/nginx/nginx_app.conf
+    ports:
+        - "80:80"
+        - "443:443"

@@ -40,9 +40,9 @@ RUN cd $HOME && \
     mv composer.phar /usr/local/bin/composer && \
     wget https://phar.phpunit.de/phpunit.phar && \
     chmod +x phpunit.phar && \
-    mv phpunit.phar /usr/local/bin/phpunit  
+    mv phpunit.phar /usr/local/bin/phpunit
 
-RUN composer global require hirak/prestissimo 
+RUN composer global require hirak/prestissimo
 
 ################################################################################
 # Configuration
@@ -65,7 +65,7 @@ COPY ./config/.bashrc /root/.bashrc
 # Copy source
 ##############################################################################
 
-COPY ./index.php /var/www/public/index.php
+# COPY ./index.php /var/www/public/index.php
 
 ################################################################################
 # Boot
